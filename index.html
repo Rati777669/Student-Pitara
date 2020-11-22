@@ -30,18 +30,18 @@
           <a class="nav-link" href="#">Home</a>
         </li>
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Links
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Notices</a>
-          <a class="dropdown-item" href="#">FAQs</a>
-          <a class="dropdown-item" href="#">Gallery</a>
-          <a class="dropdown-item" href="#">College Map</a>
-          <a class="dropdown-item" href="#">Clubs and Cells</a>
-          <a class="dropdown-item" href="#">Events and Fests</a>
-        </div>
-      </li>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Links
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Notices</a>
+            <a class="dropdown-item" href="#">FAQs</a>
+            <a class="dropdown-item" href="#">Gallery</a>
+            <a class="dropdown-item" href="#">Clubs and Cells</a>
+            <a class="dropdown-item" href="#">Events and Fests</a>
+            <a class="dropdown-item" href="#">College Map</a>
+          </div>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
@@ -60,7 +60,7 @@
   </nav>
 
   <!-- INTRODUCTION -->
-  <section class="introduction">
+  <section id="introduction" class="introduction">
     <div class="intro-container">
       <div class="row">
         <div class="col-lg-6">
@@ -148,13 +148,13 @@
             <h3 class="links-head"><i class="icon far fa-image"></i>Gallery</h3>
           </a>
           <a class="my-links" href="#">
-            <h3 class="links-head"><i class="icon fas fa-map-marked-alt"></i>College Map</h3>
-          </a>
-          <a class="my-links" href="#">
             <h3 class="links-head"><i class="icon fas fa-drafting-compass"></i>Clubs and Cells</h3>
           </a>
           <a class="my-links" href="#">
             <h3 class="links-head"><i class="icon far fa-calendar-times"></i>Events and Fests</h3>
+          </a>
+          <a class="my-links" href="#">
+            <h3 class="links-head"><i class="icon fas fa-map-marked-alt"></i>College Map</h3>
           </a>
 
         </div>
@@ -245,7 +245,7 @@
         </div>
       </div>
       <div id="gallery-btn">
-        <h5 class="intro-link-head">View All</h5>
+        <a id="gallery-link" href="#"><h5 class="intro-link-head">View All</h5></a>
       </div>
     </div>
   </section>
@@ -253,10 +253,91 @@
   <hr class="section-diff" style="width:70%">
 
   <!-- CLUBS AND COUNCILS -->
-  <section class="clubs-and-councils">
+  <section id="clubs-and-councils">
+    <h1 class="clubs-head" >Clubs and Councils</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <a class="div-link" href="#">
+            <div class="my-card">
+              <img href="#" src="images/CODE.png" alt="Avatar" style="width:100%">
+              <div class="container">
+                <h4><b>CODE</b></h4>
+                <p>Club Of DEvelpoers</p>
+              </div>
+            </div>
+          </a>
+          <br>
+          <a class="div-link" href="#">
+            <div class="my-card">
+              <img src="images/FAH.jpg" alt="Avatar" style="width:100%">
+              <div class="container">
+                <h4><b>FAH</b></h4>
+                <p>Fine Arts and Hobbies</p>
+              </div>
+            </div>
+          </a>
+          <br>
+          <a class="div-link" href="#">
+            <div id="CSC-img" class="my-card">
+              <img src="images/CSC.jpg" alt="Avatar" style="width:100%">
+              <div class="container">
+                <h4><b>CSC</b></h4>
+                <p>Cultural Sub Council</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4">
+          <a class="div-link" href="#">
+            <div class="my-card">
+              <img src="images/IAI.jpg" alt="Avatar" style="width:100%">
+              <div class="container">
+                <h4><b>Innovation And Incubation Cell</b></h4>
+                <p></p>
+              </div>
+            </div>
+          </a>
+          <br>
+          <a class="div-link" href="#">
+            <div class="my-card">
+              <img src="images/SSC.jpg" alt="Avatar" style="width:100%">
+              <div class="container">
+                <h4><b>Sports Sub Council</b></h4>
+                <p></p>
+              </div>
+            </div>
+          </a>
+          <br>
 
+        </div>
+        <div class="col-lg-4">
+          <a class="div-link" href="#">
+            <div class="my-card">
+              <img id="TPC-img" src="images/TPC.png" alt="Avatar">
+              <div class="container">
+                <h4><b>TPC</b></h4>
+                <p>Training And Placement Cell</p>
+              </div>
+            </div>
+          </a>
+          <br>
+          <a class="div-link" href="#">
+            <div class="my-card">
+              <img id="TDL-img" src="images/TDL.jpg" alt="Avatar">
+              <div class="container">
+                <h4><b>TDL</b></h4>
+                <p>The Drone Learners Club</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
 
+
+  <hr class="section-diff" style="width:70%">
 
 
 

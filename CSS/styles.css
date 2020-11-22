@@ -143,3 +143,40 @@
 #gallery-btn{
   margin:50px 0;
 }
+#gallery-link:hover{
+  text-decoration: none;
+}
+/* CLUBS AND COUNCILS */
+.clubs-head{
+  margin-bottom: 5rem;
+}
+#clubs-and-councils{
+  text-align: center;
+  font-family: 'Ubuntu', sans-serif;
+}
+.my-card{
+  border: solid 0.5px;
+  padding-bottom: 20px
+  margin-top: 10px
+}
+#TPC-img{
+  width: 70%
+}
+#TDL-img{
+  width: 90%
+}
+#CSC-img{
+  margin-bottom: 20px;
+}
+.div-link{
+  color: black;
+}
+.div-link:hover{
+  text-decoration: none;
+}
+.my-card{
+  transition: border 0.125s;
+}
+.my-card:hover{
+  border: solid 4px;
+}
