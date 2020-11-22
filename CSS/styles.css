@@ -222,3 +222,35 @@ html {
   text-decoration: none;
   color: #aaaaaa;
 }
+
+
+
+
+
+
+/* SIGN-UP */
+.white-background{
+  background-color: white;
+  text-align: center;
+}
+.email{
+  padding-top: 0
+}
+.name-input{
+  padding-top: 0;
+  padding-bottom: 0
+}
+.password{
+  padding-top: 0
+}
+.sign-up-card{
+  margin-top: 6rem
+}
+.sign-up-head{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+#ask-question{
+  padding: 5px; 
+}
