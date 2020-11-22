@@ -180,3 +180,17 @@
 .my-card:hover{
   border: solid 4px;
 }
+
+
+/* EVENTS AND FESTS */
+#events-and-fests{
+  text-align: center;
+}
+.events-head{
+  font-family: 'Ubuntu', sans-serif;
+  margin-bottom: 5rem
+}
+
+#after-fests{
+  margin-top: 10rem;
+}
