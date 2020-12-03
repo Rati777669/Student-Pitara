@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -9,16 +12,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Montserrat:wght@800&family=Raleway:ital,wght@1,300&family=Roboto+Slab:wght@600&family=Ubuntu:ital,wght@1,300&display=swap" rel="stylesheet">
   <!-- FONT AWESOME LINKS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/959552e028.js" crossorigin="anonymous"></script>
-
   <!-- STYLESHEETS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <link rel="stylesheet" href="CSS/styles.css">
 </head>
 
-
 <!-- FOR EVENTS AND FESTS -->
 <style>
+  #test {
+    margin-top: 3rem;
+    height: 463px;
+    overflow: auto;
+    text-align: justify;
+    border: 3px solid black;
+    padding: 10px;
+  }
+
   @media (min-width: 768px) {
 
     .carousel-inner .active,
@@ -89,8 +100,6 @@
   }
 </style>
 
-
-
 <body>
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark my-bg">
@@ -111,7 +120,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#after-intro">Notices</a>
             <a class="dropdown-item" href="#after-notice">FAQs</a>
-            <a class="dropdown-item" href="#after-question">Gallery</a>
+            <a class="dropdown-item" href="#after-questions">Gallery</a>
             <a class="dropdown-item" href="#after-gallery">Clubs and Cells</a>
             <a class="dropdown-item" href="#after-clubs">Events and Fests</a>
             <a class="dropdown-item" href="#after-fests">College Map</a>
@@ -121,16 +130,50 @@
           <a class="nav-link" href="#">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ask.html">Ask</a>
+          <a class="nav-link" href="ask.php">Ask</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact Us</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-btn my-2 my-sm-0" type="submit"><i class="search-icon fas fa-search"></i></button>
-      </form>
+
+      <?php
+      if (!isset($_SESSION['email'])) {
+
+      ?>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="login.php"><i style="padding-right:5px;" class="fas fa-lock"></i>Admin Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sign-in.php">Sign In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sign-up.php">Sign Up</a>
+          </li>
+        </ul>
+      <?php } else {
+        $con = mysqli_connect("localhost", "root", "");
+
+        if (!$con) {
+          die();
+        }
+        mysqli_select_db($con, "users");
+        $sql1 = "select * from user_details WHERE email='" . $_SESSION['email'] . "'";
+        $rs_result1 = mysqli_query($con, $sql1);
+        $roww = mysqli_fetch_assoc($rs_result1);
+      ?><ul>
+          <li class="nav-item dropdown dropleft">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user-circle"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="userprofile.php?id=<?php echo $roww["id"]; ?>">View Profile</a>
+              <a class="dropdown-item" href="logout.php">Logout</a>
+            </div>
+          </li>
+        <?php } ?>
+        </ul>
     </div>
   </nav>
 
@@ -139,15 +182,8 @@
     <div class="intro-container">
       <div class="row">
         <div class="col-lg-6">
-          <h1 id="intro-head">Its always nice to have someone to answer your quesions.</h1>
+          <h1 id="intro-head">Its always nice to have someone to answer your questions.</h1>
           <h4 id="intro-text">Campus Cauldron gives you just that!</h4>
-          <br>
-          <a class="intro-link" href="sign-in.html">
-            <h5 class="intro-link-head">Sign In</h5>
-          </a>
-          <a class="intro-link" href="sign-up.html">
-            <h5 class="intro-link-head">Sign Up</h5>
-          </a>
         </div>
         <div class="col-lg-6">
           <img id="intro-img" src="images/intro.jpg" alt="">
@@ -156,14 +192,13 @@
     </div>
   </section>
 
-
   <hr id="after-intro" class="section-diff" style="width:70%">
 
   <!-- NOTICES AND LINKS -->
   <section id="Notices-and-Links">
-    <div class="container">
+    <div class="">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div class="notice-panel">
             <h3 class="notice-head"><i class="icon far fa-calendar-alt"></i>Notices</h3>
             <marquee height="310" direction="up" scrollamount="3">
@@ -189,36 +224,20 @@
           </div>
         </div>
 
-
-        <div class="col-lg-4">
-          <div class="notice-panel">
-            <h3 class="notice-head"><i class="icon fas fa-bullhorn"></i>Anouncements</h3>
-            <marquee height="310" direction="up" scrollamount="3">
-              <p><a class="notice-link" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>Date: 19/03/2020
-                  <hr>
-                </a></p>
-              <p><a class="notice-link" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>Date: 19/03/2020
-                  <hr>
-                </a></p>
-              <p><a class="notice-link" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>Date: 19/03/2020
-                  <hr>
-                </a></p>
-              <p><a class="notice-link" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>Date: 19/03/2020
-                  <hr>
-                </a></p>
-              <p><a class="notice-link" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>Date: 19/03/2020
-                  <hr>
-                </a></p>
-              <p><a class="notice-link" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>Date: 19/03/2020
-                  <hr>
-                </a></p>
-            </marquee>
+        <div class="col-lg-6">
+          <div id="test">
+            <h4 id="list-item-1">Item 1</h4>
+            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            <h4 id="list-item-2">Item 2</h4>
+            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            <h4 id="list-item-3">Item 3</h4>
+            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            <h4 id="list-item-4">Item 4</h4>
+            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
           </div>
         </div>
 
-
-
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <a class="my-links" href="#after-questions">
             <h3 class="links-head"><i class="icon far fa-image"></i>Gallery</h3>
           </a>
@@ -234,15 +253,11 @@
 
         </div>
 
-
-
-
       </div>
     </div>
   </section>
 
   <hr id="after-notice" class="section-diff" style="width:70%">
-
 
   <!-- QUESTIONS -->
   <section id="Questions">
@@ -284,13 +299,11 @@
     </div>
   </section>
 
-
   <hr id="after-questions" class="section-diff" style="width:70%">
 
   <!-- GALLERY -->
   <section id="gallery">
     <h1 class="gallery-head">Caught Within The Frames</h1>
-
 
     <div class="container">
       <div class="row">
@@ -413,9 +426,7 @@
     </div>
   </section>
 
-
   <hr id="after-clubs" class="section-diff" style="width:70%">
-
 
   <!-- EVENTS AND FESTS -->
   <section id="events-and-fests">
@@ -478,9 +489,7 @@
     </div>
   </section>
 
-
   <hr id="after-fests" class="section-diff" style="width:70%">
-
 
   <!-- COLLEGE MAP -->
   <section id="map">
@@ -492,102 +501,92 @@
 
   <hr id="after-map" class="section-diff" style="width:70%">
 
-
-
-  <!-- FOOTER EXPERIMENT -->
   <!-- Footer -->
-<section id="footer">
-  <footer class="page-footer font-small mdb-color pt-4">
+  <section id="footer">
+    <footer class="page-footer font-small mdb-color pt-4">
 
-    <!-- Footer Links -->
-    <div class="container text-center text-md-left">
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left">
 
-      <!-- Footer links -->
-      <div class="row text-center text-md-left mt-3 pb-3">
+        <!-- Footer links -->
+        <div class="row text-center text-md-left mt-3 pb-3">
 
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-          <h6 class="text-uppercase mb-4 font-weight-bold">Campus Cauldron</h6>
-          <p>We hope you enjoyed your visit to our homepage!</p>
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Campus Cauldron</h6>
+            <p>We hope you enjoyed your visit to our homepage!</p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
+            <p>
+              <a class="footer-link" href="#after-intro">Notice</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#after-questions">Gallery</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#after-gallery">Clubs and Cells</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#after-clubs">Events and Fests</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact us</h6>
+            <p>
+              <a class="footer-link" href="#!"><i class="fab fa-facebook-square mr-3"></i>Facebook</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#!"><i class="fab fa-linkedin mr-3"></i>LinkedIn</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#!"><i class="fab fa-twitter-square mr-3"></i>Twitter</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#!"><i class="fas fa-envelope mr-3"></i>E-mail</a>
+            </p>
+          </div>
+
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Legal</h6>
+            <p>
+              <a class="footer-link" href="#!">Privacy Policy</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#!">Cookie Policy</a>
+            </p>
+            <p>
+              <a class="footer-link" href="#!">Terms Of Us</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
         </div>
-        <!-- Grid column -->
+        <!-- Footer links -->
 
-        <hr class="w-100 clearfix d-md-none">
-
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-          <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
-          <p>
-            <a class="footer-link" href="#after-intro">Notice</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#after-questions">Gallery</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#after-gallery">Clubs and Cells</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#after-clubs">Events and Fests</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <hr class="w-100 clearfix d-md-none">
-
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-          <h6 class="text-uppercase mb-4 font-weight-bold">Contact us</h6>
-          <p>
-            <a class="footer-link" href="#!"><i class="fab fa-facebook-square mr-3"></i>Facebook</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#!"><i class="fab fa-linkedin mr-3"></i>LinkedIn</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#!"><i class="fab fa-twitter-square mr-3"></i>Twitter</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#!"><i class="fas fa-envelope mr-3"></i>E-mail</a>
-          </p>
-        </div>
-
-        <!-- Grid column -->
-        <hr class="w-100 clearfix d-md-none">
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-          <h6 class="text-uppercase mb-4 font-weight-bold">Legal</h6>
-          <p>
-            <a class="footer-link" href="#!">Privacy Policy</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#!">Cookie Policy</a>
-          </p>
-          <p>
-            <a class="footer-link" href="#!">Terms Of Us</a>
-          </p>
-        </div>
-        <!-- Grid column -->
+        <hr>
+        <!-- Grid row -->
 
       </div>
-      <!-- Footer links -->
+      <!-- Footer Links -->
 
-      <hr>
-
-
-      <!-- Grid row -->
-
-    </div>
-    <!-- Footer Links -->
-
-  </footer>
-  <!-- Footer -->
-</section>
-
-
-
-
-
+    </footer>
+    <!-- Footer -->
+  </section>
 
 
   <!-- FOR EVENTS AND FESTS -->
@@ -615,8 +614,6 @@
       }
     });
   </script>
-
-
 
 
   <!-- SCRIPTS -->
